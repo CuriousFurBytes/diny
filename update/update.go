@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/dinoDanic/diny/ui"
+	"github.com/CuriousFurBytes/diny/ui"
 )
 
 type GitHubRelease struct {
@@ -86,7 +86,7 @@ func (uc *UpdateChecker) printUpdateNotification(version string) {
 	case "scoop":
 		updateCmd = "scoop update diny"
 	default:
-		updateCmd = "download from https://github.com/dinoDanic/diny/releases"
+		updateCmd = "download from https://github.com/CuriousFurBytes/diny/releases"
 	}
 
 	ui.Warning("New version %s available!\n\nUpdate with: diny update\nOr manually: %s\n", version, updateCmd)
@@ -175,6 +175,6 @@ func (uc *UpdateChecker) PerformUpdate() error {
 		return nil
 
 	default:
-		return fmt.Errorf("manual installation detected\n\nPlease download the latest version from:\nhttps://github.com/dinoDanic/diny/releases")
+		return fmt.Errorf("manual installation detected\n\nPlease download the latest version from:\nhttps://github.com/CuriousFurBytes/diny/releases")
 	}
 }

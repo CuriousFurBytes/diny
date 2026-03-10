@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/dinoDanic/diny/config"
-	"github.com/dinoDanic/diny/server"
+	"github.com/CuriousFurBytes/diny/config"
+	"github.com/CuriousFurBytes/diny/server"
 )
 
 // options holds optional overrides for testing and flexibility.

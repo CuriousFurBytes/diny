@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dinoDanic/diny/config"
+	"github.com/CuriousFurBytes/diny/config"
 )
 
 func newTestConfig(mode config.AIMode) *config.Config {

@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dinoDanic/diny/git"
+	"github.com/CuriousFurBytes/diny/git"
 	"gopkg.in/yaml.v3"
 )
 
@@ -449,7 +449,7 @@ func createVersionedProjectConfigIfNeeded() error {
 # This file can be committed to version control and shared with your team
 # It overlays on top of global config (~/.config/diny/config.yaml)
 # Only specify the settings you want to override from the global config
-# Learn more: https://github.com/dinoDanic/diny
+# Learn more: https://github.com/CuriousFurBytes/diny
 
 # UI theme (catppuccin, tokyonight, nord, dracula, gruvbox, etc.)
 # theme: catppuccin
@@ -534,7 +534,7 @@ func createLocalProjectConfigIfNeeded() error {
 # Use this for personal overrides on top of team config (.diny.yaml) and global config
 # It has highest priority: local > versioned (.diny.yaml) > global
 # Only specify the settings you want to override
-# Learn more: https://github.com/dinoDanic/diny
+# Learn more: https://github.com/CuriousFurBytes/diny
 
 # UI theme (catppuccin, tokyonight, nord, dracula, gruvbox, etc.)
 # theme: dracula

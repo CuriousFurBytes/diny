@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dinoDanic/diny/git"
+	"github.com/CuriousFurBytes/diny/git"
 	"github.com/spf13/cobra"
 )
 

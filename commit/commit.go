@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/dinoDanic/diny/config"
-	"github.com/dinoDanic/diny/git"
-	"github.com/dinoDanic/diny/ui"
+	"github.com/CuriousFurBytes/diny/config"
+	"github.com/CuriousFurBytes/diny/git"
+	"github.com/CuriousFurBytes/diny/ui"
 	"github.com/spf13/cobra"
 )
 
