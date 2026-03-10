@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/BurntSushi/toml v1.6.0
 	github.com/atotto/clipboard v0.1.4
 	github.com/charmbracelet/huh/spinner v0.0.0-20250922180342-f197546b2ab1
 	github.com/charmbracelet/lipgloss v1.1.0

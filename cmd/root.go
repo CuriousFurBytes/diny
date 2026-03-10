@@ -53,8 +53,11 @@ spending time manually writing messages.
 
 		AppConfig = result.Config
 
-		if AppConfig != nil && AppConfig.Theme != "" {
-			ui.SetTheme(AppConfig.Theme)
+		if AppConfig != nil {
+			ui.RegisterCustomThemes(AppConfig.CustomThemes)
+			if AppConfig.Theme != "" {
+				ui.SetTheme(AppConfig.Theme)
+			}
 		}
 	},
 }
