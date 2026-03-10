@@ -10,10 +10,10 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/dinoDanic/diny/config"
-	"github.com/dinoDanic/diny/git"
-	"github.com/dinoDanic/diny/server"
-	"github.com/dinoDanic/diny/version"
+	"github.com/CuriousFurBytes/diny/config"
+	"github.com/CuriousFurBytes/diny/git"
+	"github.com/CuriousFurBytes/diny/server"
+	"github.com/CuriousFurBytes/diny/version"
 )
 
 type TimelineRequest struct {

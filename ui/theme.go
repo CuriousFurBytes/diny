@@ -3,7 +3,7 @@ package ui
 import (
 	"sort"
 
-	"github.com/dinoDanic/diny/ui/themes"
+	"github.com/CuriousFurBytes/diny/ui/themes"
 )
 
 var currentTheme *themes.Theme

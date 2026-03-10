@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/dinoDanic/diny/changelog"
+	"github.com/CuriousFurBytes/diny/changelog"
 	"github.com/spf13/cobra"
 )
 

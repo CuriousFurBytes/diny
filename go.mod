@@ -1,4 +1,4 @@
-module github.com/dinoDanic/diny
+module github.com/CuriousFurBytes/diny
 
 go 1.24.7
 

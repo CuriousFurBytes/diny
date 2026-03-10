@@ -1,8 +1,8 @@
 package commit
 
 import (
-	"github.com/dinoDanic/diny/ai"
-	"github.com/dinoDanic/diny/config"
+	"github.com/CuriousFurBytes/diny/ai"
+	"github.com/CuriousFurBytes/diny/config"
 )
 
 func CreateCommitMessage(gitDiff string, cfg *config.Config) (string, error) {

@@ -6,8 +6,8 @@ package cmd
 import (
 	"os"
 
-	"github.com/dinoDanic/diny/ui"
-	"github.com/dinoDanic/diny/update"
+	"github.com/CuriousFurBytes/diny/ui"
+	"github.com/CuriousFurBytes/diny/update"
 	"github.com/spf13/cobra"
 )
 

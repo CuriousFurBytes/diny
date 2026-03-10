@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/dinoDanic/diny/link"
+	"github.com/CuriousFurBytes/diny/link"
 	"github.com/spf13/cobra"
 )
 

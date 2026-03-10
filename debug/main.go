@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/charmbracelet/lipgloss"
-	"github.com/dinoDanic/diny/ui"
+	"github.com/CuriousFurBytes/diny/ui"
 )
 
 func main() {

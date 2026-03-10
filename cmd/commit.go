@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/dinoDanic/diny/commit"
-	"github.com/dinoDanic/diny/config"
+	"github.com/CuriousFurBytes/diny/commit"
+	"github.com/CuriousFurBytes/diny/config"
 
 	"github.com/spf13/cobra"
 )

@@ -4,7 +4,7 @@ Copyright © 2025 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"github.com/dinoDanic/diny/timeline"
+	"github.com/CuriousFurBytes/diny/timeline"
 	"github.com/spf13/cobra"
 )
 

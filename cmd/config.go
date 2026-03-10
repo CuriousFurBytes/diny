@@ -9,8 +9,8 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/huh"
-	"github.com/dinoDanic/diny/config"
-	"github.com/dinoDanic/diny/ui"
+	"github.com/CuriousFurBytes/diny/config"
+	"github.com/CuriousFurBytes/diny/ui"
 	"github.com/spf13/cobra"
 )
 

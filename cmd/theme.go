@@ -4,7 +4,7 @@ Copyright © 2025 dinoDanic dino.danic@gmail.com
 package cmd
 
 import (
-	"github.com/dinoDanic/diny/ui"
+	"github.com/CuriousFurBytes/diny/ui"
 	"github.com/spf13/cobra"
 )
 

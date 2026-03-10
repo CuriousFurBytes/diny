@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/charmbracelet/huh"
-	"github.com/dinoDanic/diny/ui"
+	"github.com/CuriousFurBytes/diny/ui"
 	"gopkg.in/yaml.v3"
 )
 
