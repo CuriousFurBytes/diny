@@ -166,6 +166,32 @@ func TestConfig_AIValidation(t *testing.T) {
 		}
 	})
 
+	t.Run("cli mode requires command", func(t *testing.T) {
+		cfg := Config{
+			Theme:  "catppuccin",
+			AI:     AIConfig{Mode: AICLI},
+			Commit: baseCommit,
+		}
+		err := cfg.Validate()
+		if err == nil {
+			t.Error("cli mode without command should fail")
+		}
+	})
+
+	t.Run("cli mode with command passes", func(t *testing.T) {
+		cfg := Config{
+			Theme: "catppuccin",
+			AI: AIConfig{
+				Mode:    AICLI,
+				Command: "claude -p --output-format text",
+			},
+			Commit: baseCommit,
+		}
+		if err := cfg.Validate(); err != nil {
+			t.Errorf("cli mode with command should pass: %v", err)
+		}
+	})
+
 	t.Run("invalid AI mode fails", func(t *testing.T) {
 		cfg := Config{
 			Theme:  "catppuccin",

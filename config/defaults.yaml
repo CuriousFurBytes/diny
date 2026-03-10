@@ -31,6 +31,7 @@ ai:
   #   - local: Use a local AI server like Ollama (all external requests blocked)
   #   - custom: Use a custom OpenAI-compatible API with your own API key
   #   - anthropic: Use Anthropic's Claude API directly with your API key
+  #   - cli: Use a custom CLI command (prompt is passed via stdin)
   mode: remote
 
   # Local AI server URL (required when mode: local)
@@ -49,6 +50,11 @@ ai:
   # Model name for local, custom, or anthropic mode (optional)
   # Examples: llama3, gpt-4, claude-sonnet-4-20250514
   # model: ""
+
+  # CLI command (required when mode: cli)
+  # The prompt is passed via stdin, output is read from stdout.
+  # Example: claude -p --model sonnet --output-format text
+  # command: ""
 
 commit:
   # Use conventional commit format: type(scope): subject

@@ -166,6 +166,47 @@ func TestGenerateCommitMessage_Anthropic(t *testing.T) {
 	}
 }
 
+func TestGenerateCommitMessage_CLI(t *testing.T) {
+	cfg := newTestConfig(config.AICLI)
+	// Use cat to echo stdin back — simulates a CLI tool that reads prompt and returns output
+	cfg.AI.Command = "echo 'feat: add cli support'"
+
+	msg, err := GenerateCommitMessage("diff content", cfg)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if msg != "feat: add cli support" {
+		t.Errorf("expected 'feat: add cli support', got '%s'", msg)
+	}
+}
+
+func TestGenerateCommitMessage_CLI_ReceivesStdin(t *testing.T) {
+	cfg := newTestConfig(config.AICLI)
+	// cat reads stdin and outputs it — verifies the prompt is passed via stdin
+	cfg.AI.Command = "cat"
+
+	msg, err := GenerateCommitMessage("test diff", cfg)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if !strings.Contains(msg, "test diff") {
+		t.Errorf("expected output to contain 'test diff', got '%s'", msg)
+	}
+}
+
+func TestGenerateCommitMessage_CLI_FailingCommand(t *testing.T) {
+	cfg := newTestConfig(config.AICLI)
+	cfg.AI.Command = "false"
+
+	_, err := GenerateCommitMessage("diff", cfg)
+	if err == nil {
+		t.Fatal("expected error from failing command")
+	}
+	if !strings.Contains(err.Error(), "cli command failed") {
+		t.Errorf("expected 'cli command failed' in error, got: %v", err)
+	}
+}
+
 func TestGenerateCommitMessage_EmptyModeDefaultsToRemote(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		resp := map[string]any{

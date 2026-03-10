@@ -36,6 +36,7 @@ const (
 	AILocal     AIMode = "local"
 	AICustom    AIMode = "custom"
 	AIAnthropic AIMode = "anthropic"
+	AICLI       AIMode = "cli"
 )
 
 type AIConfig struct {
@@ -43,6 +44,7 @@ type AIConfig struct {
 	LocalURL string `yaml:"local_url" json:"LocalURL"`
 	APIURL   string `yaml:"api_url" json:"APIURL"`
 	APIKey   string `yaml:"api_key" json:"APIKey"`
+	Command  string `yaml:"command" json:"Command"`
 	Model    string `yaml:"model" json:"Model"`
 }
 
@@ -70,6 +72,7 @@ type LocalAIConfig struct {
 	APIURL   string  `yaml:"api_url,omitempty"`
 	APIKey   string  `yaml:"api_key,omitempty"`
 	Model    string  `yaml:"model,omitempty"`
+	Command  string  `yaml:"command,omitempty"`
 }
 
 type LocalConfig struct {
@@ -260,6 +263,7 @@ func mergeConfigWithLocal(base *Config, overlay *LocalConfig) *Config {
 			APIURL:   base.AI.APIURL,
 			APIKey:   base.AI.APIKey,
 			Model:    base.AI.Model,
+			Command:  base.AI.Command,
 		},
 		Commit: CommitConfig{
 			Conventional:       base.Commit.Conventional,
@@ -305,6 +309,9 @@ func mergeConfigWithLocal(base *Config, overlay *LocalConfig) *Config {
 	}
 	if overlay.AI.Model != "" {
 		merged.AI.Model = overlay.AI.Model
+	}
+	if overlay.AI.Command != "" {
+		merged.AI.Command = overlay.AI.Command
 	}
 
 	if overlay.Commit.Conventional != nil {
@@ -456,7 +463,7 @@ func createVersionedProjectConfigIfNeeded() error {
 
 # AI generation settings
 # ai:
-#   # Generation mode: remote (default), local (e.g. Ollama), custom (OpenAI-compatible), or anthropic (Claude)
+#   # Generation mode: remote (default), local (e.g. Ollama), custom (OpenAI-compatible), anthropic (Claude), or cli
 #   mode: remote
 #
 #   # Local AI server URL (required when mode: local)
@@ -471,6 +478,9 @@ func createVersionedProjectConfigIfNeeded() error {
 #
 #   # Model name for local, custom, or anthropic mode
 #   # model: "llama3"
+#
+#   # CLI command (required when mode: cli, prompt passed via stdin)
+#   # command: "claude -p --model sonnet --output-format text"
 
 # Commit configuration
 # commit:

@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os/exec"
 	"strings"
 	"time"
 
@@ -52,6 +53,9 @@ func GenerateCommitMessage(gitDiff string, cfg *config.Config, opts ...Option) (
 	case config.AIAnthropic:
 		prompt := buildCommitPrompt(gitDiff, cfg)
 		return requestAnthropic(cfg.AI.APIURL, cfg.AI.APIKey, cfg.AI.Model, prompt)
+	case config.AICLI:
+		prompt := buildCommitPrompt(gitDiff, cfg)
+		return requestCLI(cfg.AI.Command, prompt)
 	default:
 		return requestRemoteCommit(gitDiff, cfg, applyOptions(opts))
 	}
@@ -68,6 +72,8 @@ func GenerateTimeline(prompt string, cfg *config.Config, opts ...Option) (string
 		return requestCustom(cfg.AI.APIURL, cfg.AI.APIKey, cfg.AI.Model, prompt)
 	case config.AIAnthropic:
 		return requestAnthropic(cfg.AI.APIURL, cfg.AI.APIKey, cfg.AI.Model, prompt)
+	case config.AICLI:
+		return requestCLI(cfg.AI.Command, prompt)
 	default:
 		return requestRemoteTimeline(prompt, cfg, applyOptions(opts))
 	}
@@ -348,6 +354,32 @@ func requestAnthropic(apiURL, apiKey, model, prompt string) (string, error) {
 	}
 
 	return strings.TrimSpace(out.Content[0].Text), nil
+}
+
+// --- CLI command mode ---
+
+func requestCLI(command, prompt string) (string, error) {
+	cmd := exec.Command("sh", "-c", command)
+	cmd.Stdin = strings.NewReader(prompt)
+
+	var stdout, stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+
+	if err := cmd.Run(); err != nil {
+		detail := stderr.String()
+		if len(detail) > 200 {
+			detail = detail[:200]
+		}
+		return "", fmt.Errorf("cli command failed: %w: %s", err, detail)
+	}
+
+	result := strings.TrimSpace(stdout.String())
+	if result == "" {
+		return "", fmt.Errorf("empty response from cli command")
+	}
+
+	return result, nil
 }
 
 // --- Local-mode network restriction ---
