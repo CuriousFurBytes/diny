@@ -47,9 +47,10 @@ type AIConfig struct {
 }
 
 type Config struct {
-	Theme  string       `yaml:"theme" json:"Theme"`
-	AI     AIConfig     `yaml:"ai" json:"AI"`
-	Commit CommitConfig `yaml:"commit" json:"Commit"`
+	Theme        string            `yaml:"theme" json:"Theme"`
+	CustomThemes map[string]string `yaml:"custom_themes,omitempty" json:"CustomThemes,omitempty"`
+	AI           AIConfig          `yaml:"ai" json:"AI"`
+	Commit       CommitConfig      `yaml:"commit" json:"Commit"`
 }
 
 type CommitConfig struct {
@@ -72,9 +73,10 @@ type LocalAIConfig struct {
 }
 
 type LocalConfig struct {
-	Theme  string            `yaml:"theme,omitempty"`
-	AI     LocalAIConfig     `yaml:"ai,omitempty"`
-	Commit LocalCommitConfig `yaml:"commit,omitempty"`
+	Theme        string            `yaml:"theme,omitempty"`
+	CustomThemes map[string]string `yaml:"custom_themes,omitempty"`
+	AI           LocalAIConfig     `yaml:"ai,omitempty"`
+	Commit       LocalCommitConfig `yaml:"commit,omitempty"`
 }
 
 type LocalCommitConfig struct {
@@ -250,7 +252,8 @@ func loadLocalConfig(path string) (*LocalConfig, error) {
 
 func mergeConfigWithLocal(base *Config, overlay *LocalConfig) *Config {
 	merged := &Config{
-		Theme: base.Theme,
+		Theme:        base.Theme,
+		CustomThemes: make(map[string]string),
 		AI: AIConfig{
 			Mode:     base.AI.Mode,
 			LocalURL: base.AI.LocalURL,
@@ -274,9 +277,18 @@ func mergeConfigWithLocal(base *Config, overlay *LocalConfig) *Config {
 	for k, v := range base.Commit.EmojiMap {
 		merged.Commit.EmojiMap[k] = v
 	}
+	for k, v := range base.CustomThemes {
+		merged.CustomThemes[k] = v
+	}
 
 	if overlay.Theme != "" {
 		merged.Theme = overlay.Theme
+	}
+
+	if len(overlay.CustomThemes) > 0 {
+		for k, v := range overlay.CustomThemes {
+			merged.CustomThemes[k] = v
+		}
 	}
 
 	if overlay.AI.Mode != nil {

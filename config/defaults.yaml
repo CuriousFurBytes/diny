@@ -4,7 +4,24 @@
 # UI theme for the CLI
 # Dark: catppuccin, tokyo, nord, dracula, gruvbox-dark, onedark, monokai, solarized-dark, everforest-dark, flexoki-dark
 # Light: solarized-light, github-light, gruvbox-light, flexoki-light
+# You can also use custom themes — see custom_themes below
 theme: catppuccin
+
+# Custom themes
+# Place .json or .toml theme files in ~/.config/diny/themes/ (auto-detected by filename),
+# or map theme keys to file paths explicitly below:
+# custom_themes:
+#   my-theme: "/path/to/my-theme.json"
+#   another-theme: "/path/to/another-theme.toml"
+#
+# Theme file format (JSON or TOML):
+#   name              - Display name for the theme
+#   is_dark           - Whether this is a dark theme (true/false)
+#   primary_foreground, primary_background   - Primary UI colors (hex, e.g. "#CBA6F7")
+#   success_foreground, success_background   - Success message colors
+#   error_foreground, error_background       - Error message colors
+#   warning_foreground, warning_background   - Warning message colors
+#   muted_foreground                         - Muted/secondary text color
 
 # AI generation settings
 # Controls how diny generates commit messages, timelines, and changelogs
