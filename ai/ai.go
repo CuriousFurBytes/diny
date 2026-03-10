@@ -55,7 +55,7 @@ func GenerateCommitMessage(gitDiff string, cfg *config.Config, opts ...Option) (
 		return requestAnthropic(cfg.AI.APIURL, cfg.AI.APIKey, cfg.AI.Model, prompt)
 	case config.AICLI:
 		prompt := buildCommitPrompt(gitDiff, cfg)
-		return requestCLI(cfg.AI.Command, prompt)
+		return requestCLI(cfg.AI.Command, cfg.AI.Model, prompt)
 	default:
 		return requestRemoteCommit(gitDiff, cfg, applyOptions(opts))
 	}
@@ -73,7 +73,7 @@ func GenerateTimeline(prompt string, cfg *config.Config, opts ...Option) (string
 	case config.AIAnthropic:
 		return requestAnthropic(cfg.AI.APIURL, cfg.AI.APIKey, cfg.AI.Model, prompt)
 	case config.AICLI:
-		return requestCLI(cfg.AI.Command, prompt)
+		return requestCLI(cfg.AI.Command, cfg.AI.Model, prompt)
 	default:
 		return requestRemoteTimeline(prompt, cfg, applyOptions(opts))
 	}
@@ -358,8 +358,9 @@ func requestAnthropic(apiURL, apiKey, model, prompt string) (string, error) {
 
 // --- CLI command mode ---
 
-func requestCLI(command, prompt string) (string, error) {
-	cmd := exec.Command("sh", "-c", command)
+func requestCLI(command, model, prompt string) (string, error) {
+	expanded := strings.ReplaceAll(command, "{model}", model)
+	cmd := exec.Command("sh", "-c", expanded)
 	cmd.Stdin = strings.NewReader(prompt)
 
 	var stdout, stderr bytes.Buffer
