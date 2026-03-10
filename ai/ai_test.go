@@ -194,6 +194,20 @@ func TestGenerateCommitMessage_CLI_ReceivesStdin(t *testing.T) {
 	}
 }
 
+func TestGenerateCommitMessage_CLI_ModelSubstitution(t *testing.T) {
+	cfg := newTestConfig(config.AICLI)
+	cfg.AI.Command = "echo {model}"
+	cfg.AI.Model = "sonnet"
+
+	msg, err := GenerateCommitMessage("diff", cfg)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if msg != "sonnet" {
+		t.Errorf("expected 'sonnet', got '%s'", msg)
+	}
+}
+
 func TestGenerateCommitMessage_CLI_FailingCommand(t *testing.T) {
 	cfg := newTestConfig(config.AICLI)
 	cfg.AI.Command = "false"

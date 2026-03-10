@@ -468,7 +468,8 @@ func createVersionedProjectConfigIfNeeded() error {
 #   # model: "llama3"
 #
 #   # CLI command (required when mode: cli, prompt passed via stdin)
-#   # command: "claude -p --model sonnet --output-format text"
+#   # Use {model} to insert the model name from the config
+#   # command: "claude -p --model {model} --output-format text"
 
 # Commit configuration
 # commit:

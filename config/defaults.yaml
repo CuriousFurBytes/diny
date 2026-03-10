@@ -36,7 +36,8 @@ ai:
 
   # CLI command (required when mode: cli)
   # The prompt is passed via stdin, output is read from stdout.
-  # Example: claude -p --model sonnet --output-format text
+  # Use {model} as a placeholder for the model name from the config.
+  # Example: claude -p --model {model} --output-format text
   # command: ""
 
 commit:
