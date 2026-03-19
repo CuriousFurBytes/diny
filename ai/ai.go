@@ -114,7 +114,7 @@ func requestRemoteCommit(gitDiff string, cfg *config.Config, o options) (string,
 		GitDiff: gitDiff,
 	}
 
-	body, err := doPost(baseURL+"/api/v2/commit", nil, payload, 30*time.Second)
+	body, err := doPost(baseURL+"/api/v3/commit", nil, payload, 30*time.Second)
 	if err != nil {
 		return "", err
 	}
@@ -158,7 +158,7 @@ func requestRemoteTimeline(prompt string, cfg *config.Config, o options) (string
 		Config: cfg,
 	}
 
-	body, err := doPost(baseURL+"/api/v2/timeline", nil, payload, 30*time.Second)
+	body, err := doPost(baseURL+"/api/v3/timeline", nil, payload, 30*time.Second)
 	if err != nil {
 		return "", err
 	}

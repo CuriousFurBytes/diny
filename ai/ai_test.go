@@ -31,8 +31,8 @@ func TestGenerateCommitMessage_Remote(t *testing.T) {
 		if r.Method != http.MethodPost {
 			t.Errorf("expected POST, got %s", r.Method)
 		}
-		if r.URL.Path != "/api/v2/commit" {
-			t.Errorf("expected /api/v2/commit, got %s", r.URL.Path)
+		if r.URL.Path != "/api/v3/commit" {
+			t.Errorf("expected /api/v3/commit, got %s", r.URL.Path)
 		}
 
 		resp := map[string]any{
@@ -245,8 +245,8 @@ func TestGenerateCommitMessage_EmptyModeDefaultsToRemote(t *testing.T) {
 
 func TestGenerateTimeline_Remote(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/api/v2/timeline" {
-			t.Errorf("expected /api/v2/timeline, got %s", r.URL.Path)
+		if r.URL.Path != "/api/v3/timeline" {
+			t.Errorf("expected /api/v3/timeline, got %s", r.URL.Path)
 		}
 		resp := map[string]any{
 			"data": map[string]any{

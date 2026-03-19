@@ -1,11 +1,7 @@
 package cmd
 
 import (
-	"os"
-
-	"github.com/CuriousFurBytes/diny/commit"
-	"github.com/CuriousFurBytes/diny/git"
-	"github.com/CuriousFurBytes/diny/ui"
+	"github.com/CuriousFurBytes/diny/tui/yolo"
 	"github.com/spf13/cobra"
 )
 
@@ -25,36 +21,5 @@ func init() {
 }
 
 func runYolo() {
-	err := ui.WithSpinner("Staging all changes...", func() error {
-		return git.AddAll()
-	})
-	if err != nil {
-		ui.Error("Failed to stage changes: %v", err)
-		os.Exit(1)
-	}
-
-	diff, err := git.GetGitDiff()
-	if err != nil {
-		ui.Error("Failed to get git diff: %v", err)
-		os.Exit(1)
-	}
-	if len(diff) == 0 {
-		ui.Warning("No changes to commit.")
-		os.Exit(0)
-	}
-
-	var commitMessage string
-	err = ui.WithSpinner("Generating commit message...", func() error {
-		var genErr error
-		commitMessage, genErr = commit.CreateCommitMessage(diff, AppConfig)
-		return genErr
-	})
-	if err != nil {
-		ui.Error("Failed to generate commit message: %v", err)
-		os.Exit(1)
-	}
-
-	ui.Box("Commit message", commitMessage)
-
-	commit.ExecuteCommit(commitMessage, true, true, AppConfig)
+	yolo.Run(AppConfig, Version)
 }

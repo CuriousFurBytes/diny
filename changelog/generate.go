@@ -11,7 +11,7 @@ import (
 	"github.com/charmbracelet/huh"
 	"github.com/CuriousFurBytes/diny/config"
 	"github.com/CuriousFurBytes/diny/git"
-	"github.com/CuriousFurBytes/diny/ai"
+	"github.com/CuriousFurBytes/diny/groq"
 	"github.com/CuriousFurBytes/diny/ui"
 )
 
@@ -106,7 +106,7 @@ func generateChangelog(olderRef, newerRef string, cfg *config.Config) error {
 	var result string
 	spinErr := ui.WithSpinner("Generating changelog...", func() error {
 		var genErr error
-		result, genErr = ai.GenerateChangelog(prompt, cfg)
+		result, genErr = groq.CreateChangelogWithGroq(prompt, cfg)
 		return genErr
 	})
 
@@ -213,7 +213,7 @@ func handleGenerateFlow(result, rangeLabel, olderRef, newerRef, prompt string, c
 		var newResult string
 		spinErr := ui.WithSpinner("Regenerating changelog...", func() error {
 			var genErr error
-			newResult, genErr = ai.GenerateChangelog(modifiedPrompt, cfg)
+			newResult, genErr = groq.CreateChangelogWithGroq(modifiedPrompt, cfg)
 			return genErr
 		})
 		if spinErr != nil {

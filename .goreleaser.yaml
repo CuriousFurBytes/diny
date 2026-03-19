@@ -19,7 +19,7 @@ builds:
   - env:
       - CGO_ENABLED=0
     ldflags:
-      - -X github.com/dinoDanic/diny/cmd.Version={{.Version}}
+      - -X github.com/CuriousFurBytes/diny/cmd.Version={{.Version}}
     goos:
       - linux
       - windows
@@ -57,7 +57,7 @@ release:
 brews:
   - name: diny
     description: "🦕 Generate meaningful commit messages from git diff"
-    homepage: "https://github.com/dinoDanic/diny"
+    homepage: "https://github.com/CuriousFurBytes/diny"
     license: "MIT"
     repository:
       owner: dinoDanic
@@ -73,7 +73,7 @@ brews:
 scoops:
   - name: diny
     description: "🦕 Generate meaningful commit messages from git diff"
-    homepage: "https://github.com/dinoDanic/diny"
+    homepage: "https://github.com/CuriousFurBytes/diny"
     license: "MIT"
     repository:
       owner: dinoDanic

@@ -199,67 +199,8 @@ func DebugUI() {
 	fmt.Println("=== END DEBUG ===")
 }
 
-func printThemePreview(themeTitle string, themeKey string) {
-	SetTheme(themeKey)
-	theme := GetCurrentTheme()
-
-	titleStyle := lipgloss.NewStyle().
-		Foreground(theme.PrimaryForeground).
-		Bold(true)
-
-	primaryBox := lipgloss.NewStyle().
-		Foreground(theme.PrimaryForeground).
-		Background(theme.PrimaryBackground).
-		BorderLeft(true).
-		BorderStyle(lipgloss.ThickBorder()).
-		BorderForeground(theme.PrimaryForeground).
-		Padding(0, 2)
-
-	successBox := lipgloss.NewStyle().
-		Foreground(theme.SuccessForeground).
-		Background(theme.SuccessBackground).
-		BorderLeft(true).
-		BorderStyle(lipgloss.ThickBorder()).
-		BorderForeground(theme.SuccessForeground).
-		Padding(0, 2)
-
-	errorBox := lipgloss.NewStyle().
-		Foreground(theme.ErrorForeground).
-		Background(theme.ErrorBackground).
-		BorderLeft(true).
-		BorderStyle(lipgloss.ThickBorder()).
-		BorderForeground(theme.ErrorForeground).
-		Padding(0, 2)
-
-	warningBox := lipgloss.NewStyle().
-		Foreground(theme.WarningForeground).
-		Background(theme.WarningBackground).
-		BorderLeft(true).
-		BorderStyle(lipgloss.ThickBorder()).
-		BorderForeground(theme.WarningForeground).
-		Padding(0, 2)
-
-	fmt.Println(titleStyle.Render(themeTitle))
-
-	boxes := lipgloss.JoinHorizontal(
-		lipgloss.Top,
-		primaryBox.Render("Primary")+"  ",
-		successBox.Render("Success")+"  ",
-		errorBox.Render("Error")+"  ",
-		warningBox.Render("Warning"),
-	)
-
-	fmt.Println(boxes)
-
-	separator := lipgloss.NewStyle().
-		Foreground(theme.MutedForeground).
-		Render(strings.Repeat("─", 60))
-	fmt.Println(separator)
-	fmt.Println()
-}
-
 func PrintThemeList() {
-	builtInThemes := []struct {
+	themes := []struct {
 		name     string
 		themeKey string
 	}{
@@ -279,21 +220,65 @@ func PrintThemeList() {
 		{"Flexoki Dark", "flexoki-dark"},
 	}
 
-	for _, t := range builtInThemes {
-		printThemePreview(t.name, t.themeKey)
-	}
+	for _, t := range themes {
+		SetTheme(t.themeKey)
+		theme := GetCurrentTheme()
 
-	customKeys := GetCustomThemeKeys()
-	if len(customKeys) > 0 {
-		mutedStyle := lipgloss.NewStyle().Bold(true)
-		fmt.Println(mutedStyle.Render("Custom Themes"))
+		themeTitle := t.name
+
+		titleStyle := lipgloss.NewStyle().
+			Foreground(theme.PrimaryForeground).
+			Bold(true)
+
+		primaryBox := lipgloss.NewStyle().
+			Foreground(theme.PrimaryForeground).
+			Background(theme.PrimaryBackground).
+			BorderLeft(true).
+			BorderStyle(lipgloss.ThickBorder()).
+			BorderForeground(theme.PrimaryForeground).
+			Padding(0, 2)
+
+		successBox := lipgloss.NewStyle().
+			Foreground(theme.SuccessForeground).
+			Background(theme.SuccessBackground).
+			BorderLeft(true).
+			BorderStyle(lipgloss.ThickBorder()).
+			BorderForeground(theme.SuccessForeground).
+			Padding(0, 2)
+
+		errorBox := lipgloss.NewStyle().
+			Foreground(theme.ErrorForeground).
+			Background(theme.ErrorBackground).
+			BorderLeft(true).
+			BorderStyle(lipgloss.ThickBorder()).
+			BorderForeground(theme.ErrorForeground).
+			Padding(0, 2)
+
+		warningBox := lipgloss.NewStyle().
+			Foreground(theme.WarningForeground).
+			Background(theme.WarningBackground).
+			BorderLeft(true).
+			BorderStyle(lipgloss.ThickBorder()).
+			BorderForeground(theme.WarningForeground).
+			Padding(0, 2)
+
+		fmt.Println(titleStyle.Render(themeTitle))
+
+		boxes := lipgloss.JoinHorizontal(
+			lipgloss.Top,
+			primaryBox.Render("Primary")+"  ",
+			successBox.Render("Success")+"  ",
+			errorBox.Render("Error")+"  ",
+			warningBox.Render("Warning"),
+		)
+
+		fmt.Println(boxes)
+
+		separator := lipgloss.NewStyle().
+			Foreground(theme.MutedForeground).
+			Render(strings.Repeat("─", 60))
+		fmt.Println(separator)
 		fmt.Println()
-
-		for _, key := range customKeys {
-			if ct, ok := customThemes[key]; ok {
-				printThemePreview(ct.Name+" (custom)", key)
-			}
-		}
 	}
 
 	SetTheme("catppuccin")
