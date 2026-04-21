@@ -105,17 +105,26 @@ func showRatingPrompt(state *State, cfg *config.Config) {
 	value := ShowRating(state, cfg)
 	_ = SaveState(state)
 
-	// Only POST + thank if the user rated (1-3), not on dismiss (0) or cancel (-1).
+	if value == -1 {
+		return
+	}
+
+	payloadValue := "dismissed"
 	if value >= 1 && value <= 3 {
-		feedback.Send(feedback.Payload{
-			Type:     "rating",
-			Value:    strconv.Itoa(value),
-			Email:    git.GetGitEmail(),
-			Name:     git.GetGitName(),
-			Version:  version.Get(),
-			System:   runtime.GOOS,
-			RepoName: git.GetRepoName(),
-		})
+		payloadValue = strconv.Itoa(value)
+	}
+
+	feedback.Send(feedback.Payload{
+		Type:     "rating",
+		Value:    payloadValue,
+		Email:    git.GetGitEmail(),
+		Name:     git.GetGitName(),
+		Version:  version.Get(),
+		System:   runtime.GOOS,
+		RepoName: git.GetRepoName(),
+	})
+
+	if value >= 1 && value <= 3 {
 		tuiprompts.PrintThanks("Thanks for the feedback!")
 	}
 }
