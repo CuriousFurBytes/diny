@@ -6,5 +6,5 @@ type ServerConfigS struct {
 
 var ServerConfig = ServerConfigS{
 	// BaseURL: "http://localhost:3578",
-	BaseURL: "https://diny-cli.vercel.app",
+	BaseURL: "https://diny.run",
 }
